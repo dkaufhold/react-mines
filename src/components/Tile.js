@@ -5,14 +5,13 @@ const tileStyles = {
   height: 20,
   borderRight: '2px solid gray',
   borderBottom: '2px solid gray',
-  borderLeft: '2px solid gray',
-  borderTop: '2px solid gray',
-  borderRightStyle: 'inset',
-  textAlign: 'center',
+  borderLeft: '2px solid white',
+  borderTop: '2px solid white',
+  textAlign: 'center'
 }
 
 const Tile = ({ content, x, y, onClick }) => (
-  <div onClick={onClick} style={tileStyles}>
+  <div onClick={() => onClick(x, y)} style={tileStyles}>
     {content}
   </div>
 )

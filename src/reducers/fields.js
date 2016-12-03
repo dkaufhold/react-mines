@@ -17,28 +17,28 @@ const initialState = (function() {
 })()
 
 
-const field = (state = initialState, action) => {
+const fields = (state = initialState, action) => {
   switch (action.type) {
     case actions.CLICK_FIELD:
       return {
-        x: action.x,
-        y: action.y
+        ...state,
+        clicked: [action.x, action.y]
       }
     default:
       return state
   }
 }
-
-const fields = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.CLICK_FIELD:
-      return [
-        ...state,
-        field(undefined, action)
-      ]
-    default:
-      return state
-  }
-}
+//
+// const fields = (state = initialState, action) => {
+//   switch (action.type) {
+//     case actions.CLICK_FIELD:
+//       return [
+//         ...state,
+//         field(undefined, action)
+//       ]
+//     default:
+//       return state
+//   }
+// }
 
 export default fields

@@ -7,6 +7,7 @@ const mines = 10
 const emptyTile = '\xa0'  // nbsp
 const mineTile = '*'
 
+
 const placeMines = (tiles) => {
 
   var x, y
@@ -23,6 +24,7 @@ const placeMines = (tiles) => {
   }
 
 }
+
 
 const getMineCount = (tiles, tile) => {
 
@@ -49,6 +51,7 @@ const getMineCount = (tiles, tile) => {
 
 }
 
+
 const placeNumbers = (tiles) => {
 
   var tile
@@ -64,6 +67,7 @@ const placeNumbers = (tiles) => {
 
 }
 
+
 const initialState = (() => {
 
   var tiles = []
@@ -78,31 +82,35 @@ const initialState = (() => {
   }
   placeMines(tiles)
   placeNumbers(tiles)
+
   return {tiles: tiles}
+
 })()
 
 
 const fields = (state = initialState, action) => {
   switch (action.type) {
     case actions.CLICK_FIELD:
-      var newState = state
-      newState.fields.tiles[action.x][action.y].clicked = true
-      return newState
+      var newTiles = []
+      state.tiles.map((col) => {
+        var newCol = []
+        col.map((tile) => {
+          if (tile.x === action.x && tile.y === action.y) {
+            tile.clicked = true
+          }
+          newCol.push(tile)
+        })
+        newTiles.push(newCol)
+      })
+
+      return {
+        ...state,
+        tiles: newTiles
+      }
     default:
       return state
   }
 }
-//
-// const fields = (state = initialState, action) => {
-//   switch (action.type) {
-//     case actions.CLICK_FIELD:
-//       return [
-//         ...state,
-//         field(undefined, action)
-//       ]
-//     default:
-//       return state
-//   }
-// }
+
 
 export default fields

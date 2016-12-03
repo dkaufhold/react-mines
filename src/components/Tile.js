@@ -14,8 +14,7 @@ const tileStyles = {
     width: 20,
     height: 20,
     textAlign: 'center',
-    border: '2px solid lightgray',
-    borderStyle: 'dotted'
+    border: '2px dotted gray',
   }
 }
 
@@ -30,6 +29,7 @@ const Tile = ({ content, x, y, clicked, onClick }) => (
     })()}
   >
     {clicked && content}
+    {!clicked && '\xa0'}
   </div>
 )
 

@@ -1,18 +1,42 @@
 import * as actions from '../actions'
 
-const initialState = (function() {
-  const colCount = 10
-  const rowCount = 5
+const colCount = 10
+const rowCount = 5
+const mines = 10
+
+const emptyTile = '\xa0'  // nbsp
+const mineTile = '*'
+
+const placeMines = (tiles) => {
+
+  var x, y
+
+  for (var i = 0; i < mines; i++) {
+    x = Math.floor(Math.random() * colCount)
+    y = Math.floor(Math.random() * rowCount)
+
+    while (tiles[x][y].content === mineTile) {
+      x = Math.floor(Math.random() * colCount)
+      y = Math.floor(Math.random() * rowCount)
+    }
+    tiles[x][y].content = mineTile
+  }
+
+}
+
+const initialState = (() => {
+
   var tiles = []
   for (var x = 0; x < colCount; x++) {
     var colTiles = []
     for (var y = 0; y < rowCount; y++) {
       colTiles.push({
-        content: 'x', x: x, y: y
+        content: emptyTile, x: x, y: y
       })
     }
     tiles.push(colTiles)
   }
+  placeMines(tiles)
   return {tiles: tiles}
 })()
 

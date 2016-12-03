@@ -1,18 +1,35 @@
 import React, { PropTypes } from "react"
 
 const tileStyles = {
-  width: 20,
-  height: 20,
-  borderRight: '2px solid gray',
-  borderBottom: '2px solid gray',
-  borderLeft: '2px solid white',
-  borderTop: '2px solid white',
-  textAlign: 'center'
+  base: {
+    width: 20,
+    height: 20,
+    textAlign: 'center',
+    borderRight: '2px solid gray',
+    borderBottom: '2px solid gray',
+    borderLeft: '2px solid white',
+    borderTop: '2px solid white'
+  },
+  clicked: {
+    width: 20,
+    height: 20,
+    textAlign: 'center',
+    border: '2px solid lightgray',
+    borderStyle: 'dotted'
+  }
 }
 
-const Tile = ({ content, x, y, onClick }) => (
-  <div onClick={() => onClick(x, y)} style={tileStyles}>
-    {content}
+const Tile = ({ content, x, y, clicked, onClick }) => (
+  <div
+    onClick={() => onClick(x, y)}
+    style={(() => {
+      if (clicked) {
+        return tileStyles.clicked
+      }
+      return tileStyles.base
+    })()}
+  >
+    {clicked && content}
   </div>
 )
 

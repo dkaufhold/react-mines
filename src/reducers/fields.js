@@ -71,7 +71,7 @@ const initialState = (() => {
     var colTiles = []
     for (var y = 0; y < rowCount; y++) {
       colTiles.push({
-        content: emptyTile, x: x, y: y
+        content: emptyTile, x: x, y: y, clicked: false
       })
     }
     tiles.push(colTiles)
@@ -85,10 +85,9 @@ const initialState = (() => {
 const fields = (state = initialState, action) => {
   switch (action.type) {
     case actions.CLICK_FIELD:
-      return {
-        ...state,
-        clicked: [action.x, action.y]
-      }
+      var newState = state
+      newState.fields.tiles[action.x][action.y].clicked = true
+      return newState
     default:
       return state
   }

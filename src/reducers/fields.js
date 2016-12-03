@@ -24,6 +24,46 @@ const placeMines = (tiles) => {
 
 }
 
+const getMineCount = (tiles, tile) => {
+
+  var tx, ty
+  var count = 0
+
+  for (var x = -1; x <= 1; x++) {
+    for (var y = -1; y <= 1; y++) {
+      tx = tile.x + x
+      ty = tile.y + y
+      // if within field bounds
+      if (tx >= 0 && ty >= 0 && tx < colCount && ty < rowCount) {
+        // and if it's a mine, increase count
+        if (tiles[tx][ty].content === mineTile) count++
+      }
+    }
+  }
+
+  if (count > 0) {
+    return count.toString()
+  } else {
+    return emptyTile
+  }
+
+}
+
+const placeNumbers = (tiles) => {
+
+  var tile
+
+  for (var x = 0; x < colCount; x++) {
+    for (var y = 0; y < rowCount; y++) {
+      tile = tiles[x][y]
+      if (tile.content !== mineTile) {
+        tile.content = getMineCount(tiles, tile)
+      }
+    }
+  }
+
+}
+
 const initialState = (() => {
 
   var tiles = []
@@ -37,6 +77,7 @@ const initialState = (() => {
     tiles.push(colTiles)
   }
   placeMines(tiles)
+  placeNumbers(tiles)
   return {tiles: tiles}
 })()
 

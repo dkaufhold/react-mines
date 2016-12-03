@@ -1,4 +1,7 @@
+import { connect } from 'react-redux'
 import React, { PropTypes } from "react"
+
+import { clickField } from '../actions'
 import GridRow from './GridRow'
 
 const gridStyle = {
@@ -7,7 +10,7 @@ const gridStyle = {
   backgroundColor: 'lightgray'
 }
 
-class Grid extends React.Component {
+class BaseGrid extends React.Component {
 
   static propTypes = {
     tiles: PropTypes.arrayOf(
@@ -31,6 +34,28 @@ class Grid extends React.Component {
     )
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    tiles: state.fields.tiles
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTileClick: (x, y) => {
+      dispatch(clickField(x, y))
+    }
+  }
+}
+
+
+const Grid = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BaseGrid)
 
 
 export default Grid

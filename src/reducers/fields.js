@@ -1,11 +1,11 @@
 import * as actions from '../actions'
 
-const colCount = 10
-const rowCount = 5
-const mines = 10
+export const colCount = 10
+export const rowCount = 5
+export const mines = 10
 
-const emptyTile = '\xa0'  // nbsp
-const mineTile = '*'
+export const emptyTile = '\xa0'  // nbsp
+export const mineTile = '*'
 
 
 const placeMines = (tiles) => {
@@ -68,7 +68,8 @@ const placeNumbers = (tiles) => {
 }
 
 
-const initialState = (() => {
+
+const initialTiles = (() => {
 
   var tiles = []
   for (var x = 0; x < colCount; x++) {
@@ -88,8 +89,19 @@ const initialState = (() => {
 })()
 
 
+const initialState = {
+  ...initialTiles,
+  gameOver: false
+}
+
+
 const fields = (state = initialState, action) => {
   switch (action.type) {
+    case actions.GAME_OVER:
+      return {
+        ...state,
+        gameOver: true
+      }
     case actions.CLICK_FIELD:
       var newTiles = []
       state.tiles.map((col) => {

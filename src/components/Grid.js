@@ -6,8 +6,7 @@ import GridRow from './GridRow'
 
 const gridStyle = {
   padding: 10,
-  display: 'inline-block',
-  backgroundColor: 'lightgray'
+  display: 'inline-block'
 }
 
 class BaseGrid extends React.Component {

@@ -6,3 +6,8 @@ export const clickField = (x, y) => {
     y: y
   }
 }
+
+export const GAME_OVER = 'GAME_OVER'
+export const gameOver = () => {
+  return { type: GAME_OVER }
+}

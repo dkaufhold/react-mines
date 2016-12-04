@@ -99,8 +99,10 @@ const fields = (state = initialState, action) => {
             tile.clicked = true
           }
           newCol.push(tile)
+          return newCol
         })
         newTiles.push(newCol)
+        return newTiles
       })
 
       return {

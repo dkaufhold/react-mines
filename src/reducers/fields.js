@@ -2,7 +2,7 @@ import * as actions from '../actions'
 
 export const colCount = 10
 export const rowCount = 5
-export const mines = 2
+export const mines = 10
 
 export const emptyTile = '\xa0'  // nbsp
 export const mineTile = '*'

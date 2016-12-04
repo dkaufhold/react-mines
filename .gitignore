@@ -7,7 +7,8 @@ node_modules
 coverage
 
 # production
-build
+# adding build folder for showcasing on GitHub
+# build
 
 # misc
 .DS_Store

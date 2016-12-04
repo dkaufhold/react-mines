@@ -1,7 +1,7 @@
 import React from "react"
 
 import Grid from "./components/Grid"
-import GameOver from "./components/GameOver"
+import GameState from "./components/GameState"
 
 const appStyles = {
   base: {
@@ -22,7 +22,7 @@ class App extends React.Component {
       <div style={appStyles.base}>
         <h1 style={appStyles.headline}>React Mines</h1>
         <Grid />
-        <GameOver />
+        <GameState />
       </div>
     )
   }

@@ -7,6 +7,11 @@ export const clickField = (x, y) => {
   }
 }
 
+export const GAME_WON = 'GAME_WON'
+export const gameWon = () => {
+  return { type: GAME_WON }
+}
+
 export const GAME_OVER = 'GAME_OVER'
 export const gameOver = () => {
   return { type: GAME_OVER }

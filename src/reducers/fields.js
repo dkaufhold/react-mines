@@ -2,7 +2,7 @@ import * as actions from '../actions'
 
 export const colCount = 10
 export const rowCount = 5
-export const mines = 10
+export const mines = 2
 
 export const emptyTile = '\xa0'  // nbsp
 export const mineTile = '*'
@@ -84,42 +84,57 @@ const initialTiles = (() => {
   placeMines(tiles)
   placeNumbers(tiles)
 
-  return {tiles: tiles}
+  return { tiles: tiles }
 
 })()
 
 
 const initialState = {
   ...initialTiles,
-  gameOver: false
+  gameOver: false,
+  gameWon: false,
+  tilesCount: rowCount * colCount,
+  tilesUncovered: 0
 }
 
 
 const fields = (state = initialState, action) => {
   switch (action.type) {
+    case actions.GAME_WON:
+      return {
+        ...state,
+        gameWon: true
+      }
     case actions.GAME_OVER:
       return {
         ...state,
         gameOver: true
       }
     case actions.CLICK_FIELD:
-      var newTiles = []
-      state.tiles.map((col) => {
-        var newCol = []
-        col.map((tile) => {
-          if (tile.x === action.x && tile.y === action.y) {
-            tile.clicked = true
-          }
-          newCol.push(tile)
-          return newCol
+      var x = action.x
+      var y = action.y
+      if (x >= 0 && y >= 0 && x < colCount && y < rowCount && !state.tiles[action.x][action.y].clicked) {
+        var newTiles = []
+        state.tiles.map((col) => {
+          var newCol = []
+          col.map((tile) => {
+            if (tile.x === action.x && tile.y === action.y) {
+              tile.clicked = true
+            }
+            newCol.push(tile)
+            return newCol
+          })
+          newTiles.push(newCol)
+          return newTiles
         })
-        newTiles.push(newCol)
-        return newTiles
-      })
-
+        return {
+          ...state,
+          tilesUncovered: state.tilesUncovered + 1,
+          tiles: newTiles
+        }
+      }
       return {
-        ...state,
-        tiles: newTiles
+        ...state
       }
     default:
       return state

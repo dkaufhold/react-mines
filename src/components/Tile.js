@@ -31,15 +31,17 @@ class BaseTile extends React.Component {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     clicked: PropTypes.bool.isRequired,
+    gameOver: PropTypes.bool.isRequired,
+    gameWon: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired
   }
 
   handleClick (x, y) {
-    if (!this.props.gameOver) {
+    if (!this.props.gameOver && !this.props.gameWon) {
       this.props.dispatch(clickField(x, y))
-    }
-    if (this.props.content === mineTile) {
-      this.props.dispatch(gameOver())
+      if (this.props.content === mineTile) {
+        this.props.dispatch(gameOver())
+      }
     }
   }
 
@@ -85,6 +87,7 @@ const Tile = connect(
     return {
       tiles: state.fields.tiles,
       gameOver: state.fields.gameOver,
+      gameWon: state.fields.gameWon
     }
   }
 )(BaseTile)

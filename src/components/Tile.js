@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import React, { PropTypes } from "react"
 
 import { clickField, gameOver } from '../actions'
-import { mineTile } from '../reducers/fields'
+import { emptyTile, mineTile } from '../reducers/fields'
 
 
 const tileStyles = {
@@ -38,9 +38,25 @@ class BaseTile extends React.Component {
     if (!this.props.gameOver) {
       this.props.dispatch(clickField(x, y))
     }
-    console.log(this.props.content, mineTile)
     if (this.props.content === mineTile) {
       this.props.dispatch(gameOver())
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.clicked && !this.props.clicked) {
+      if (nextProps.content === emptyTile) {
+        var x = nextProps.x
+        var y = nextProps.y
+        this.props.dispatch(clickField(x - 1, y - 1))
+        this.props.dispatch(clickField(x, y - 1))
+        this.props.dispatch(clickField(x + 1, y - 1))
+        this.props.dispatch(clickField(x - 1, y))
+        this.props.dispatch(clickField(x + 1, y))
+        this.props.dispatch(clickField(x - 1, y + 1))
+        this.props.dispatch(clickField(x, y + 1))
+        this.props.dispatch(clickField(x + 1, y + 1))
+      }
     }
   }
 
